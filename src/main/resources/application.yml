@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: pg-management
+  
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    username: pg_management
+    password: pg_management
+    driver-class-name: oracle.jdbc.OracleDriver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.OracleDialect
+        format_sql: true
+  
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: pg-management-group
+      auto-offset-reset: earliest
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  
+  redis:
+    host: localhost
+    port: 6379
+
+server:
+  port: 8080
+
+aws:
+  region: us-east-1
+  access-key: ${AWS_ACCESS_KEY}
+  secret-key: ${AWS_SECRET_KEY}
+
+jwt:
+  secret: pg-management-secret-key-2024
+  expiration: 86400000
